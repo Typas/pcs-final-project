@@ -25,3 +25,16 @@ Pending --> Reject
 Accept --> [*]
 Reject --> [*]
 ```
+
+## The Flow
+```mermaid
+zenuml
+title Verification
+telecom["電信"]
+company["店到店"]
+phone["手機"]
+company->telecom: "電話號碼、代號" {
+    company."unique hash"
+    phone."到貨通知(選擇性)"
+}
+```
