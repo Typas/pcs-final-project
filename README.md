@@ -18,4 +18,9 @@ flowchart TB;
 ## State Machine of SMS
 ```mermaid
 stateDiagram-v2;
+[*] --> Pending;
+Pending --> Accept;
+Pending --> Reject;
+Accept --> [*];
+Reject --> [*];
 ```
