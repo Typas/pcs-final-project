@@ -2,7 +2,7 @@
 Simple idea on verifying the identity with PCS.
 
 ```mermaid
-graph Arch;
+flowchart LR
 店到店 --> 電信 : 0.送電話號碼、貨物代號
 電信 --> 店到店 : 1.送QR code
 電信 --> 店到店 : 3.送驗證結果
