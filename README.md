@@ -3,8 +3,8 @@ Simple idea on verifying the identity with PCS.
 
 ```mermaid
 flowchart TB;
-    company["店到店"];
     telecom["電信"];
+    company["店到店"];
     phone["手機"];
     company-->|"0.送電話號碼、貨物代號"| telecom;
     telecom-->|"1.送QR code"| company;
