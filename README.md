@@ -6,7 +6,7 @@ flowchart TB;
     telecom["電信"];
     company["店到店"];
     phone["手機"];
-    company-->|"0.送電話號碼、貨物代號"| telecom;
+    company-->|"0.送電話號碼、代號"| telecom;
     telecom-->|"1.送QR code"| company;
     telecom-->|"3.送驗證結果"| company;
     telecom-->|"1.通知到貨(選擇性)"| phone;
