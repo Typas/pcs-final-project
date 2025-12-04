@@ -12,4 +12,5 @@ flowchart TD;
     telecom-->|"1.通知到貨(選擇性)"| phone;
     company-->|"2-1.掃描QR code"| phone;
     phone-->|"2-2.送驗證簡訊"| telecom;
+    phone~~~telecom;
 ```
