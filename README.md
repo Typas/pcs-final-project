@@ -2,7 +2,7 @@
 Simple idea on verifying the identity with PCS.
 
 ```mermaid
-flowchart LR;
+flowchart;
     company["店到店"];
     telecom["電信"];
     phone["手機"];
