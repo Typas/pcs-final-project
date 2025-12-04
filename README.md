@@ -19,6 +19,7 @@ flowchart TB
 ```mermaid
 stateDiagram-v2
 [*] --> Pending
+Pending --> Pending
 Pending --> Accept
 Pending --> Reject
 Accept --> [*]
