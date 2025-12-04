@@ -28,13 +28,11 @@ Reject --> [*]
 
 ## The Flow
 ```mermaid
-zenuml
-title Verification
-telecom["電信"]
-company["店到店"]
-phone["手機"]
-company->telecom: "電話號碼、代號" {
-    company."unique hash"
-    phone."到貨通知(選擇性)"
-}
+sequenceDiagram
+participant telecom as "電信"
+participant company as "店到店"
+participant phone as "手機"
+company->>telecom: "電話號碼、代號"
+telecom->>company: "unique hash"
+telecom->>phone: "到貨通知(選擇性)"
 ```
