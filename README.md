@@ -16,39 +16,38 @@ flowchart TB
 ```
 ```mermaid
 flowchart TB
-    Phone[📱 Phone]
+    Phone["手機"]
     
-    subgraph Cloud1[" "]
-        GW1[Gateway]
-        TelecomDB[(Telecom Database)]
-        SMS[SMS]
+    subgraph TelecomCloud["電信"]
+        TelecomGW[Gateway]
+        TelecomDB["資料庫"]
+        SMS["簡訊服務"]
     end
     
-    subgraph Cloud2[" "]
-        GW2[Gateway]
-        EnterpriseDB[(Enterprise Database)]
-        Terminal[Terminal]
-        QR[QR Code]
+    subgraph EnterpriseCloud["店到店"]
+        EnterpriseGW[Gateway]
+        EnterpriseDB["資料庫"]
+        Terminal["店內機器"]
     end
     
-    Phone -->|Phone Number,<br/>Request,<br/>Message| GW1
-    GW1 -->|A hash<br/>Rejection| Phone
-    GW1 --> TelecomDB
+    EnterpriseGW -->|"手機號碼、\n驗證請求、\n(訊息)"| TelecomGW
+    TelecomGW -->|"Hash值/拒絕請求"| EnterpriseGW
+    TelecomGW --> TelecomDB
+    TelecomDB --> TelecomGW
     TelecomDB --> SMS
     SMS --> TelecomDB
     
-    GW1 -->|Confirm or Timeout| GW2
+    TelecomGW -->|"確認/(超時)"| EnterpriseGW
     
-    GW2 --> EnterpriseDB
-    EnterpriseDB --> GW2
+    EnterpriseGW --> EnterpriseDB
+    EnterpriseDB --> EnterpriseGW
+    EnterpriseDB --> |"Hash值"| Terminal
+    EnterpriseDB --> |"驗證成功"| Terminal
+
+    Terminal --> |"Hash值 (QR)"| Phone
     
-    Terminal -->|A hash| GW2
-    QR --> Terminal
-    
-    SMS -->|Message<br/>Warning| Phone
-    Phone -->|Confirm| SMS
-    
-    Terminal -->|A hash| Phone
+    SMS -->|"通知/警示"| Phone
+    Phone -->|"確認 (Hash)"| SMS
     
     style Cloud1 fill:#f0f0f0,stroke:#999,stroke-width:2px,stroke-dasharray: 5 5
     style Cloud2 fill:#f0f0f0,stroke:#999,stroke-width:2px,stroke-dasharray: 5 5
