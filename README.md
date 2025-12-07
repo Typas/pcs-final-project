@@ -16,7 +16,7 @@ flowchart TB
 ```
 ```mermaid
 flowchart TB
-    Phone1[📱 Phone]
+    Phone[📱 Phone]
     
     subgraph Cloud1[" "]
         GW1[Gateway]
@@ -31,10 +31,8 @@ flowchart TB
         QR[QR Code]
     end
     
-    Phone2[📱 Phone]
-    
-    Phone1 -->|Phone Number,<br/>Request,<br/>Message| GW1
-    GW1 -->|A hash<br/>Rejection| Phone1
+    Phone -->|Phone Number,<br/>Request,<br/>Message| GW1
+    GW1 -->|A hash<br/>Rejection| Phone
     GW1 --> TelecomDB
     TelecomDB --> SMS
     SMS --> TelecomDB
@@ -47,10 +45,10 @@ flowchart TB
     Terminal -->|A hash| GW2
     QR --> Terminal
     
-    SMS -->|Message<br/>Warning| Phone2
-    Phone2 -->|Confirm| SMS
+    SMS -->|Message<br/>Warning| Phone
+    Phone -->|Confirm| SMS
     
-    Terminal -->|A hash| Phone2
+    Terminal -->|A hash| Phone
     
     style Cloud1 fill:#f0f0f0,stroke:#999,stroke-width:2px,stroke-dasharray: 5 5
     style Cloud2 fill:#f0f0f0,stroke:#999,stroke-width:2px,stroke-dasharray: 5 5
