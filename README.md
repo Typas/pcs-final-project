@@ -14,7 +14,8 @@ flowchart TB
     company-->|"2-1.掃描QR code"| phone
     phone-->|"2-2.送驗證簡訊"| telecom
 ```
-```mermaidflowchart TB
+```mermaid
+flowchart TB
     Phone1[📱 Phone]
     
     subgraph Cloud1[" "]
