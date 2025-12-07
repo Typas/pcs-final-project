@@ -4,18 +4,6 @@ Simple idea on verifying the identity with PCS.
 ## Architecture
 ```mermaid
 flowchart TB
-    telecom["電信"]
-    company["店到店"]
-    phone["手機"]
-    company-->|"0.送電話號碼、代號"| telecom
-    telecom-->|"1.送QR code"| company
-    telecom-->|"3.送驗證結果"| company
-    telecom-->|"1.通知到貨(選擇性)"| phone
-    company-->|"2-1.掃描QR code"| phone
-    phone-->|"2-2.送驗證簡訊"| telecom
-```
-```mermaid
-flowchart TB
     Phone["手機"]
     
     subgraph TelecomCloud["電信"]
@@ -48,9 +36,6 @@ flowchart TB
     
     SMS -->|"通知/警示"| Phone
     Phone -->|"確認 (Hash)"| SMS
-    
-    style Cloud1 fill:#f0f0f0,stroke:#999,stroke-width:2px,stroke-dasharray: 5 5
-    style Cloud2 fill:#f0f0f0,stroke:#999,stroke-width:2px,stroke-dasharray: 5 5
 ```
 
 ## State Machine of SMS
