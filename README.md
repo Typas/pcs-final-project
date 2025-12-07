@@ -14,6 +14,47 @@ flowchart TB
     company-->|"2-1.掃描QR code"| phone
     phone-->|"2-2.送驗證簡訊"| telecom
 ```
+```mermaid
+flowchart TB
+    Phone1[📱 Phone]
+    
+    subgraph Cloud1[" "]
+        GW1[Gateway]
+        TelecomDB[(Telecom Database)]
+        SMS[SMS]
+    end
+    
+    subgraph Cloud2[" "]
+        GW2[Gateway]
+        EnterpriseDB[(Enterprise Database)]
+        Terminal[Terminal]
+        QR[QR Code]
+    end
+    
+    Phone2[📱 Phone]
+    
+    Phone1 -->|Phone Number,<br/>Request,<br/>Message| GW1
+    GW1 -->|A hash<br/>Rejection| Phone1
+    GW1 --> TelecomDB
+    TelecomDB --> SMS
+    SMS --> TelecomDB
+    
+    GW1 -->|Confirm<br/>/ (Timeout)| GW2
+    
+    GW2 --> EnterpriseDB
+    EnterpriseDB --> GW2
+    
+    Terminal -->|A hash| GW2
+    QR --> Terminal
+    
+    SMS -->|Message<br/>Warning| Phone2
+    Phone2 -->|Confirm| SMS
+    
+    Terminal -->|A hash| Phone2
+    
+    style Cloud1 fill:#f0f0f0,stroke:#999,stroke-width:2px,stroke-dasharray: 5 5
+    style Cloud2 fill:#f0f0f0,stroke:#999,stroke-width:2px,stroke-dasharray: 5 5
+```
 
 ## State Machine of SMS
 ```mermaid
