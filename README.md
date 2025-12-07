@@ -18,7 +18,7 @@ flowchart TB
         Terminal["店內機器"]
     end
     
-    EnterpriseGW -->|"手機號碼、\n驗證請求、\n(訊息)"| TelecomGW
+    EnterpriseGW -->|"手機號碼、驗證請求、(訊息)"| TelecomGW
     TelecomGW -->|"Hash值/拒絕請求"| EnterpriseGW
     TelecomGW --> TelecomDB
     TelecomDB --> TelecomGW
