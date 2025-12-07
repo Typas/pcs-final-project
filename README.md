@@ -14,8 +14,7 @@ flowchart TB
     company-->|"2-1.掃描QR code"| phone
     phone-->|"2-2.送驗證簡訊"| telecom
 ```
-```mermaid
-flowchart TB
+```mermaidflowchart TB
     Phone1[📱 Phone]
     
     subgraph Cloud1[" "]
@@ -39,7 +38,7 @@ flowchart TB
     TelecomDB --> SMS
     SMS --> TelecomDB
     
-    GW1 -->|Confirm<br/>/ (Timeout)| GW2
+    GW1 -->|Confirm or Timeout| GW2
     
     GW2 --> EnterpriseDB
     EnterpriseDB --> GW2
