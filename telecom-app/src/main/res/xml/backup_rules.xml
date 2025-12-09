@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!-- TODO Remove the following backup rules, if you do not need them.
+
+    Sample backup rules lets you specify which files to include in your backups.
+    To learn more about the backup system, see the Android Developer Guide at
+    https://developer.android.com/guide/topics/data/autobackup.html
+
+    To see the syntax for backup rules, see the Backup Scheme reference at
+    https://developer.android.com/guide/topics/data/backup-scheme.html
+    -->
+    <include domain="sharedpref" path="."/>
+    <exclude domain="sharedpref" path="device.xml"/>
+</full-backup-content>

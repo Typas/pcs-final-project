@@ -1,0 +1,11 @@
+/build
+/libs
+/src/main/res/mipmap-anydpi-v26
+.gradle
+.idea
+*.iml
+*build/
+local.properties
+.DS_Store
+captures
+.externalNativeBuild
