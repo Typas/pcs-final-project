@@ -13,6 +13,8 @@ import org.ntu.pcs.telecom.database.UserDao
 import org.ntu.pcs.telecom.database.VerificationDao
 import org.ntu.pcs.telecom.models.IncomingMessage
 import org.ntu.pcs.telecom.models.User
+import org.ntu.pcs.telecom.server.telecomModule
+import org.ntu.pcs.telecom.server.generateUniqueHash
 
 class ServerTest {
 
@@ -22,11 +24,13 @@ class ServerTest {
     @Test
     fun testMessageEndpointSuccess() = testApplication {
         application {
-            serverModule(mockUserDao, mockVerificationDao)
+            telecomModule(mockUserDao, mockVerificationDao)
         }
         val client = createClient {
             install(ContentNegotiation) {
-                gson()
+                gson {
+                    registerTypeAdapter(ByteArray::class.java, org.ntu.pcs.telecom.util.ByteArrayAdapter())
+                }
             }
         }
 
@@ -46,11 +50,13 @@ class ServerTest {
     @Test
     fun testMessageEndpointPhoneNotFound() = testApplication {
         application {
-            serverModule(mockUserDao, mockVerificationDao)
+            telecomModule(mockUserDao, mockVerificationDao)
         }
         val client = createClient {
             install(ContentNegotiation) {
-                gson()
+                gson {
+                    registerTypeAdapter(ByteArray::class.java, org.ntu.pcs.telecom.util.ByteArrayAdapter())
+                }
             }
         }
 
@@ -69,11 +75,13 @@ class ServerTest {
     @Test
     fun testMessageEndpointNameMismatch() = testApplication {
         application {
-            serverModule(mockUserDao, mockVerificationDao)
+            telecomModule(mockUserDao, mockVerificationDao)
         }
         val client = createClient {
             install(ContentNegotiation) {
-                gson()
+                gson {
+                    registerTypeAdapter(ByteArray::class.java, org.ntu.pcs.telecom.util.ByteArrayAdapter())
+                }
             }
         }
 
@@ -104,3 +112,4 @@ class ServerTest {
         assertEquals(64, hash1.length)
     }
 }
+

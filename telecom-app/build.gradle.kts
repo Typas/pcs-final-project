@@ -29,12 +29,16 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+        isCoreLibraryDesugaringEnabled = true
     }
 
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
         }
+    }
+    lint {
+        baseline = file("lint-baseline.xml")
     }
 }
 
@@ -73,8 +77,9 @@ dependencies {
     testImplementation("org.mockito:mockito-core:5.20.0")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
     testImplementation("androidx.work:work-testing:2.11.0")
-    testImplementation("androidx.test:core:1.7.0")
-    testImplementation("org.robolectric:robolectric:4.16")
+    testImplementation("androidx.room:room-testing:2.8.4")
+    testImplementation("org.xerial:sqlite-jdbc:3.45.1.0")
+
     testImplementation("io.ktor:ktor-server-test-host:3.3.3")
     testImplementation("io.ktor:ktor-server-content-negotiation:3.3.3")
     // Explicit testImplementation for Ktor client components in androidTest
@@ -84,4 +89,5 @@ dependencies {
     testImplementation("io.ktor:ktor-serialization-gson:3.3.3")
     androidTestImplementation("androidx.test.ext:junit:1.3.0")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.7.0")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
 }

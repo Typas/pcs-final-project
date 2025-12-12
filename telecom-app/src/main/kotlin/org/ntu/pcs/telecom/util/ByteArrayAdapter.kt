@@ -1,6 +1,6 @@
 package org.ntu.pcs.telecom.util
 
-import android.util.Base64
+import java.util.Base64
 import com.google.gson.TypeAdapter
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
@@ -10,7 +10,7 @@ class ByteArrayAdapter : TypeAdapter<ByteArray>() {
         if (value == null) {
             out.nullValue()
         } else {
-            out.value(Base64.encodeToString(value, Base64.NO_WRAP))
+            out.value(Base64.getEncoder().withoutPadding().encodeToString(value))
         }
     }
 
@@ -19,7 +19,7 @@ class ByteArrayAdapter : TypeAdapter<ByteArray>() {
             input.nextNull()
             null
         } else {
-            Base64.decode(input.nextString(), Base64.NO_WRAP)
+            Base64.getDecoder().decode(input.nextString())
         }
     }
 }

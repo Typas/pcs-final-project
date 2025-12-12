@@ -3,7 +3,6 @@ package org.ntu.pcs.telecom.server
 import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.contentnegotiation.*
@@ -21,8 +20,13 @@ import org.junit.runner.RunWith
 import java.io.IOException
 import org.junit.Assert.*
 import org.ntu.pcs.telecom.database.AppDatabase
+import org.ntu.pcs.telecom.database.UserDao
+import org.ntu.pcs.telecom.database.VerificationDao
 import org.ntu.pcs.telecom.models.User
 import org.ntu.pcs.telecom.models.IncomingMessage
+import org.ntu.pcs.telecom.server.telecomModule
+import org.ntu.pcs.telecom.util.ByteArrayAdapter // This import might already be there, but ensuring it.
+import androidx.test.ext.junit.runners.AndroidJUnit4
 
 @RunWith(AndroidJUnit4::class)
 class ServerIntegrationTest {
@@ -41,7 +45,9 @@ class ServerIntegrationTest {
             val user = User("1234567890", "Test User")
             userDao.insertUser(user)
         }
-        server = startKtorServer(context)
+        server = embeddedServer(io.ktor.server.cio.CIO, port = 6973) {
+            telecomModule(db.userDao(), db.verificationDao())
+        }.start(wait = false)
     }
 
     @After
