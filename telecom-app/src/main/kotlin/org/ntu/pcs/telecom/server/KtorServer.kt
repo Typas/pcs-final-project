@@ -15,7 +15,6 @@ import org.ntu.pcs.telecom.database.UserDao
 import org.ntu.pcs.telecom.database.VerificationDao
 import org.ntu.pcs.telecom.models.IncomingMessage
 import org.ntu.pcs.telecom.models.VerificationRecord
-import org.ntu.pcs.telecom.util.ByteArrayAdapter
 import java.security.MessageDigest
 import java.util.UUID
 
@@ -28,7 +27,6 @@ internal fun generateUniqueHash(phone: String, message: String): String {
 fun Application.telecomModule(userDao: UserDao, verificationDao: VerificationDao) {
     install(ContentNegotiation) {
         gson {
-            registerTypeAdapter(ByteArray::class.java, ByteArrayAdapter())
         }
     }
     routing {

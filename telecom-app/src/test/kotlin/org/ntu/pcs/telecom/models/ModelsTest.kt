@@ -116,30 +116,33 @@ class ModelsTest {
     @Test
     fun testIncomingMessage() {
         val msg = IncomingMessage(
-            name = "John",
+            name = "John Doe",
             phone = "1234567890",
-            message = "Verify me",
-            verifyRequests = byteArrayOf(1, 2, 3),
-            timeToLive = 3000L
+            message = "Hello, world!",
+            verifyRequests = 0uL,
+            timeToLive = System.currentTimeMillis() + 1000 * 60 * 5 // 5 minutes
         )
+
+        assertEquals("John Doe", msg.name)
         assertEquals("1234567890", msg.phone)
-        assertEquals("Verify me", msg.message)
-        assertEquals(3000L, msg.timeToLive)
-        assertEquals("John", msg.name)
-        assertArrayEquals(byteArrayOf(1, 2, 3), msg.verifyRequests)
-    }    @Test
+        assertEquals("Hello, world!", msg.message)
+        assertEquals(0uL, msg.verifyRequests)
+        assertTrue(msg.timeToLive > System.currentTimeMillis())
+    }
+
+    @Test
     fun testIncomingMessageEqualsAndHashCode() {
-        val msg1 = IncomingMessage("John", "123", "msg", byteArrayOf(1), 1L)
-        val msg2 = IncomingMessage("John", "123", "msg", byteArrayOf(1), 1L)
-        val msg3 = IncomingMessage("Jane", "123", "msg", byteArrayOf(1), 1L)
-        val msg4 = IncomingMessage("John", "456", "msg", byteArrayOf(1), 1L)
-        val msg5 = IncomingMessage("John", "123", "msg2", byteArrayOf(1), 1L)
-        val msg6 = IncomingMessage("John", "123", "msg", byteArrayOf(2), 1L)
-        val msg7 = IncomingMessage("John", "123", "msg", byteArrayOf(1), 2L)
-        val msgDifferentLength = IncomingMessage("John", "123", "msg", byteArrayOf(1, 2), 1L)
-        val msgEmptyByteArray = IncomingMessage("John", "123", "msg", byteArrayOf(), 1L)
-        val msgNullName1 = IncomingMessage(null, "123", "msg", byteArrayOf(1), 1L)
-        val msgNullName2 = IncomingMessage(null, "123", "msg", byteArrayOf(1), 1L)
+        val msg1 = IncomingMessage("John", "123", "msg", 1uL, 1L)
+        val msg2 = IncomingMessage("John", "123", "msg", 1uL, 1L)
+        val msg3 = IncomingMessage("Jane", "123", "msg", 1uL, 1L)
+        val msg4 = IncomingMessage("John", "456", "msg", 1uL, 1L)
+        val msg5 = IncomingMessage("John", "123", "msg2", 1uL, 1L)
+        val msg6 = IncomingMessage("John", "123", "msg", 2uL, 1L)
+        val msg7 = IncomingMessage("John", "123", "msg", 1uL, 2L)
+        val msgDifferentFlags = IncomingMessage("John", "123", "msg", 3uL, 1L)
+        val msgZeroFlags = IncomingMessage("John", "123", "msg", 0uL, 1L)
+        val msgNullName1 = IncomingMessage(null, "123", "msg", 1uL, 1L)
+        val msgNullName2 = IncomingMessage(null, "123", "msg", 1uL, 1L)
 
         // Test equality
         assertEquals(msg1, msg1)
@@ -152,8 +155,8 @@ class ModelsTest {
         assertNotEquals(msg1, msg5)
         assertNotEquals(msg1, msg6)
         assertNotEquals(msg1, msg7)
-        assertNotEquals(msg1, msgDifferentLength)
-        assertNotEquals(msg1, msgEmptyByteArray)
+        assertNotEquals(msg1, msgDifferentFlags)
+        assertNotEquals(msg1, msgZeroFlags)
 
         // Test cases with null name
         assertEquals(msgNullName1, msgNullName2)
@@ -170,7 +173,7 @@ class ModelsTest {
 
     @Test
     fun testIncomingMessageCopy() {
-        val msg1 = IncomingMessage("John", "123", "msg", byteArrayOf(1), 1L)
+        val msg1 = IncomingMessage("John", "123", "msg", 1uL, 1L)
         val msg2 = msg1.copy()
         val msg3 = msg1.copy(name = "Jane")
 

@@ -29,7 +29,6 @@ class ServerTest {
         val client = createClient {
             install(ContentNegotiation) {
                 gson {
-                    registerTypeAdapter(ByteArray::class.java, org.ntu.pcs.telecom.util.ByteArrayAdapter())
                 }
             }
         }
@@ -37,7 +36,7 @@ class ServerTest {
         val testUser = User("1234567890", "Test User")
         `when`(mockUserDao.getUserByPhone("1234567890")).thenReturn(testUser)
 
-        val message = IncomingMessage("Test User", "1234567890", "Test Message", byteArrayOf(), 3600000)
+        val message = IncomingMessage("Test User", "1234567890", "Test Message", 0uL, 3600000)
 
         val response = client.post("/message") {
             contentType(ContentType.Application.Json)
@@ -55,14 +54,13 @@ class ServerTest {
         val client = createClient {
             install(ContentNegotiation) {
                 gson {
-                    registerTypeAdapter(ByteArray::class.java, org.ntu.pcs.telecom.util.ByteArrayAdapter())
                 }
             }
         }
 
         `when`(mockUserDao.getUserByPhone("0987654321")).thenReturn(null)
 
-        val message = IncomingMessage("Test User", "0987654321", "Test Message", byteArrayOf(), 3600000)
+        val message = IncomingMessage("Test User", "0987654321", "Test Message", 0uL, 3600000)
 
         val response = client.post("/message") {
             contentType(ContentType.Application.Json)
@@ -80,7 +78,6 @@ class ServerTest {
         val client = createClient {
             install(ContentNegotiation) {
                 gson {
-                    registerTypeAdapter(ByteArray::class.java, org.ntu.pcs.telecom.util.ByteArrayAdapter())
                 }
             }
         }
@@ -88,7 +85,7 @@ class ServerTest {
         val testUser = User("1234567890", "Test User")
         `when`(mockUserDao.getUserByPhone("1234567890")).thenReturn(testUser)
 
-        val message = IncomingMessage("Wrong User", "1234567890", "Test Message", byteArrayOf(), 3600000)
+        val message = IncomingMessage("Wrong User", "1234567890", "Test Message", 0uL, 3600000)
 
         val response = client.post("/message") {
             contentType(ContentType.Application.Json)

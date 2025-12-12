@@ -25,7 +25,6 @@ import org.ntu.pcs.telecom.database.VerificationDao
 import org.ntu.pcs.telecom.models.User
 import org.ntu.pcs.telecom.models.IncomingMessage
 import org.ntu.pcs.telecom.server.telecomModule
-import org.ntu.pcs.telecom.util.ByteArrayAdapter // This import might already be there, but ensuring it.
 import androidx.test.ext.junit.runners.AndroidJUnit4
 
 @RunWith(AndroidJUnit4::class)
@@ -64,11 +63,10 @@ class ServerIntegrationTest {
         val client = HttpClient(CIO) {
             install(ContentNegotiation) {
                 gson {
-                    registerTypeAdapter(ByteArray::class.java, org.ntu.pcs.telecom.util.ByteArrayAdapter())
                 }
             }
         }
-        val message = IncomingMessage("Test User", "1234567890", "Test Message", byteArrayOf(), 3600000)
+        val message = IncomingMessage("Test User", "1234567890", "Test Message", 0uL, 3600000)
 
         val response: HttpResponse = client.post("http://localhost:6973/message") {
             contentType(ContentType.Application.Json)
@@ -84,11 +82,10 @@ class ServerIntegrationTest {
         val client = HttpClient(CIO) {
             install(ContentNegotiation) {
                 gson {
-                    registerTypeAdapter(ByteArray::class.java, org.ntu.pcs.telecom.util.ByteArrayAdapter())
                 }
             }
         }
-        val message = IncomingMessage("Test User", "0987654321", "Test Message", byteArrayOf(), 3600000)
+        val message = IncomingMessage("Test User", "0987654321", "Test Message", 0uL, 3600000)
 
         val response: HttpResponse = client.post("http://localhost:6973/message") {
             contentType(ContentType.Application.Json)
@@ -103,11 +100,10 @@ class ServerIntegrationTest {
         val client = HttpClient(CIO) {
             install(ContentNegotiation) {
                 gson {
-                    registerTypeAdapter(ByteArray::class.java, org.ntu.pcs.telecom.util.ByteArrayAdapter())
                 }
             }
         }
-        val message = IncomingMessage("Wrong User", "1234567890", "Test Message", byteArrayOf(), 3600000)
+        val message = IncomingMessage("Wrong User", "1234567890", "Test Message", 0uL, 3600000)
 
         val response: HttpResponse = client.post("http://localhost:6973/message") {
             contentType(ContentType.Application.Json)
