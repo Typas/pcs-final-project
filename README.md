@@ -52,13 +52,12 @@ Reject --> [*]
 ## The Flow
 ```mermaid
 sequenceDiagram
-participant telecom as 電信
+participant telecom as 第三方
 participant company as 店到店
 participant phone as 手機
-company->>telecom: 1. 電話號碼、代號
-telecom->>company: 1-1. 獨特hash值
-telecom->>phone: 1-2. 到貨通知(選擇性)
-company->>phone: 2-1. QR code(獨特hash值)
-phone->>telecom: 2-2. 驗證簡訊
+company->>telecom: 1. 電話號碼、UID
+telecom->>company: 1-1. 2FA seed
+company->>phone: 2-1. QR code (UID+2FA code)
+phone->>telecom: 2-2. 驗證簡訊 (UID+2FA code)
 telecom->>company: 3. 驗證結果
 ```
