@@ -6,7 +6,7 @@ Simple idea on verifying the identity with PCS.
 flowchart TB
     Phone["手機"]
     
-    subgraph TelecomCloud["電信"]
+    subgraph TelecomCloud["第三方業者"]
         TelecomGW[Gateway]
         TelecomDB["資料庫"]
         SMS["簡訊服務"]
@@ -18,9 +18,9 @@ flowchart TB
         Terminal["店內機器"]
     end
     
-    EnterpriseGW -->|"手機號碼、驗證請求、(訊息)"| TelecomGW
+    EnterpriseGW -->|"(1)"| TelecomGW
     TelecomGW -->|"Hash值/拒絕請求"| EnterpriseGW
-    TelecomGW --> TelecomDB
+    TelecomGW -->|"(1)"| TelecomDB
     TelecomDB --> TelecomGW
     TelecomDB --> SMS
     SMS --> TelecomDB
@@ -28,8 +28,8 @@ flowchart TB
     TelecomGW -->|"確認/(超時)"| EnterpriseGW
     
     EnterpriseGW --> EnterpriseDB
-    EnterpriseDB --> EnterpriseGW
-    EnterpriseDB --> |"Hash值"| Terminal
+    EnterpriseDB --> |"(1)商品UID、手機號碼、Hash值"| EnterpriseGW
+    EnterpriseDB --> |"UID、Hash值"| Terminal
     EnterpriseDB --> |"驗證成功"| Terminal
 
     Terminal --> |"Hash值 (QR)"| Phone
